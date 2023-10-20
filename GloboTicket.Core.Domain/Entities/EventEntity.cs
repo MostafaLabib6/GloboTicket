@@ -3,7 +3,7 @@ using GloboTicket.Core.Domain.Entities;
 
 namespace GloboTicket.TicketManagement.Domain.Entities
 {
-    public class Event: BaseEntity
+    public class EventEntity: BaseEntity
     {
         public Guid EventId { get; set; }
         public string Name { get; set; } = string.Empty;
