@@ -5,11 +5,11 @@ using MediatR;
 
 namespace GloboTicket.Application.Features.Event.Queries;
 
-public class GetEventListHandler : IRequestHandler<GetEventsListQuery, List<EventsListDto>>
+public class GetEventListQueryHandler : IRequestHandler<GetEventsListQuery, List<EventsListDto>>
 {
     private readonly IMapper _mapper;
     private readonly IEventRepository _repository;
-    public GetEventListHandler(IMapper mapper, IEventRepository repository)
+    public GetEventListQueryHandler(IMapper mapper, IEventRepository repository)
     {
         _mapper = mapper;
         _repository = repository;

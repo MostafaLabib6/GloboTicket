@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using GloboTicket.Application.Contracts.Persistance;
 using MediatR;
-namespace GloboTicket.Application.Features.Event.Commands
+namespace GloboTicket.Application.Features.Event.Commands.Update
 {
-    public class updateEventCommandHandler : IRequestHandler<UpdateEventCommand>
+    public class UpdateEventCommandHandler : IRequestHandler<UpdateEventCommand>
     {
         private readonly IMapper _mapper;
         private readonly IEventRepository _repository;
-        public updateEventCommandHandler(IMapper mapper, IEventRepository repository)
+        public UpdateEventCommandHandler(IMapper mapper, IEventRepository repository)
         {
             _mapper = mapper;
             _repository = repository;
