@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 
 namespace GloboTicket.Application.Contracts.Persistance;
 
-public interface IEventRepository:IGenaricRepository<Event>
+public interface IEventRepository:IGenaricRepository<EventEntity>
 {
 
 }

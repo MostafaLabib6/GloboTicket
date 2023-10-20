@@ -9,6 +9,7 @@ public interface IGenaricRepository<T> where T : class
     public Task<IReadOnlyList<T>> GetAll();
     
     public Task<T> Get(Expression<Func<T,bool>> filter);
+    public Task<T> Get(Guid Id);
     public Task<T> Add(T entity);
     public Task Update(T entity); 
 
