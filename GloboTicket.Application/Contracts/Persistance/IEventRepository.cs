@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 
 namespace GloboTicket.Application.Contracts.Persistance;
 
-public interface IEventRepository:IGenaricRepository<EventEntity>
+public interface IEventRepository : IGenaricRepository<EventEntity>
 {
-
+    public Task<bool> EventNameAndDateUnique(string name, DateTime date);
 }

@@ -1,5 +1,8 @@
-﻿namespace GloboTicket.Application.Contracts.Persistance;
+﻿using GloboTicket.Core.Domain.Entities;
 
-public interface ICategoryRepository
+namespace GloboTicket.Application.Contracts.Persistance;
+
+public interface ICategoryRepository : IGenaricRepository<Category>
 {
+    public Task<IReadOnlyList<Category>> CategoryWithEvents();
 }
