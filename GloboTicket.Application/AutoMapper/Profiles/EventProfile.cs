@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GloboTicket.Application.Features.Event.Commands.Update;
 using GloboTicket.Application.Models;
+using GloboTicket.Core.Domain.Entities;
 using GloboTicket.TicketManagement.Domain.Entities;
 
 namespace GloboTicket.TicketManagement.Application.Profiles
@@ -11,10 +12,8 @@ namespace GloboTicket.TicketManagement.Application.Profiles
         {
             CreateMap<EventEntity, EventsListDto>().ReverseMap();
             CreateMap<EventEntity, EventDto>().ReverseMap();
-
             CreateMap<EventCreationDto, EventEntity>();
             CreateMap<EventUpdateDto, EventEntity>();
-            CreateMap<DeleteEv>
         }
     }
 }
