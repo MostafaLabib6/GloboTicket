@@ -17,7 +17,17 @@ public class CreateEventCommandHandler : IRequestHandler<CreateEventCommand, Gui
 
     public async Task<Guid> Handle(CreateEventCommand request, CancellationToken cancellationToken)
     {
+        var validator = new CreateEventCommandValidator(_repository);
+        var ValidationResult = await validator.ValidateAsync(request);
+
+        // if user missing some data that neccessary for Creation of The event 
+        // Fluent validation catch them and throw Validation error that contains all fields input errors.
+        // otherwise the Creation of the user is ok.
+        if (ValidationResult.Errors.Count > 0)
+            throw new Exceptions.ValidationException(ValidationResult);
+
         var entity = await _repository.Add(_mapper.Map<EventEntity>(request));
+
         return entity.EventId;
 
     }

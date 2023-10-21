@@ -15,9 +15,20 @@ namespace GloboTicket.Application.Features.Event.Commands.Update
 
         public async Task<Unit> Handle(UpdateEventCommand request, CancellationToken cancellationToken)
         {
+            var validator = new UpdateEventCommandValidator();
+
+            // check for Event Existance 
             var eventToUpdate = await _repository.Get(x => x.Name == request.EventUpdateDto.Name);
             if (eventToUpdate != null)
-                throw new InvalidOperationException();
+                throw new Exceptions.NotFoundException("The name of the Event not fount...");
+
+
+            //validate Request input
+            var ValidatorResult = await validator.ValidateAsync(request);
+            if (ValidatorResult.Errors.Count > 0)
+                throw new Exceptions.ValidationException(ValidatorResult);
+
+
             _mapper.Map(request, eventToUpdate);
             return Unit.Value;
 
