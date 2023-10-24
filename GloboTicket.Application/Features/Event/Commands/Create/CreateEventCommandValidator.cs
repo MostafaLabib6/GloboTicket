@@ -12,12 +12,12 @@ public class CreateEventCommandValidator : AbstractValidator<CreateEventCommand>
     {
         _repository = repository;
 
-        RuleFor(p => p.EventCreationDto.Name)
+        RuleFor(p => p.Name)
            .NotEmpty().WithMessage("{PropertyName} is required.")
            .NotNull()
            .MaximumLength(50).WithMessage("{PropertyName} must not exceed 50 characters.");
 
-        RuleFor(p => p.EventCreationDto.Date)
+        RuleFor(p => p.Date)
             .NotEmpty().WithMessage("{PropertyName} is required.")
             .NotNull()
             .GreaterThan(DateTime.Now);
@@ -26,13 +26,13 @@ public class CreateEventCommandValidator : AbstractValidator<CreateEventCommand>
             .MustAsync(EventNameAndDateUnique)
             .WithMessage("An event with the same name and date already exists.");
 
-        RuleFor(p => p.EventCreationDto.Price)
+        RuleFor(p => p.Price)
             .NotEmpty().WithMessage("{PropertyName} is required.")
             .GreaterThan(0);
     }
 
     public async Task<bool> EventNameAndDateUnique(CreateEventCommand e, CancellationToken cancellationToken)
     {
-        return !(await _repository.EventNameAndDateUnique(e.EventCreationDto.Name, e.EventCreationDto.Date));
-    }
+        return !(await _repository.EventNameAndDateUnique(e.Name, e.Date));
+    }   
 }

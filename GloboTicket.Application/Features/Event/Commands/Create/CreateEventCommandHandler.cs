@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using GloboTicket.Application.Contracts.Infrastructure;
 using GloboTicket.Application.Contracts.Persistance;
+using GloboTicket.Application.Models;
 using GloboTicket.TicketManagement.Domain.Entities;
 using MediatR;
 
@@ -9,10 +11,12 @@ public class CreateEventCommandHandler : IRequestHandler<CreateEventCommand, Gui
 {
     private readonly IMapper _mapper;
     private readonly IEventRepository _repository;
-    public CreateEventCommandHandler(IMapper mapper, IEventRepository repository)
+    private readonly IEmailService _emailService;
+    public CreateEventCommandHandler(IMapper mapper, IEventRepository repository, IEmailService emailService)
     {
         _mapper = mapper;
         _repository = repository;
+        _emailService = emailService;
     }
 
     public async Task<Guid> Handle(CreateEventCommand request, CancellationToken cancellationToken)
@@ -28,6 +32,15 @@ public class CreateEventCommandHandler : IRequestHandler<CreateEventCommand, Gui
 
         var entity = await _repository.Add(_mapper.Map<EventEntity>(request));
 
+        Email email = new Email() { To = "anythingnotimportant7665@gmail.com", Subject = "Event Creation alarm", Body = "Dear user;" };
+        try
+        {
+            await _emailService.SendEmail(email);
+        }
+        catch
+        {
+            // log it in logging file 
+        }
         return entity.EventId;
 
     }
