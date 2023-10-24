@@ -18,7 +18,7 @@ public class DeleteCategoryCommandHandler : IRequestHandler<DeleteCategoryComman
     {
         var entity = await _repository.Get(request.CategoryId);
         if (entity == null)
-            throw new Exceptions.NotFoundException("Not Found Category..");
+            throw new Exceptions.NotFoundException("Delete", request.CategoryId);
         await _repository.Delete(entity);
         return Unit.Value;
     }

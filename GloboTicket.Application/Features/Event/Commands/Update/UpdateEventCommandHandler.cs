@@ -20,7 +20,7 @@ namespace GloboTicket.Application.Features.Event.Commands.Update
             // check for Event Existance 
             var eventToUpdate = await _repository.Get(x => x.Name == request.Name);
             if (eventToUpdate != null)
-                throw new Exceptions.NotFoundException("The name of the Event not fount...");
+                throw new Exceptions.NotFoundException("Update", request.Name);
 
 
             //validate Request input
