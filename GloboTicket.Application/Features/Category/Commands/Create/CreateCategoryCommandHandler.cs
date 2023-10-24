@@ -19,6 +19,7 @@ public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryComman
         var CreationResponse = new CreateCategoryCommandResponse();
 
         var CategoryValidation = new CreateCategoryValidation();
+
         var validationResault = await CategoryValidation.ValidateAsync(request, cancellationToken);
 
         if (validationResault.Errors.Count > 0)
