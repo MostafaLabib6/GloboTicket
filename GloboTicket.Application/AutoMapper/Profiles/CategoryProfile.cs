@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GloboTicket.Application.Features.Category.Commands.Create;
 using GloboTicket.Application.Models;
+using GloboTicket.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,10 @@ namespace GloboTicket.Application.AutoMapper.Profiles
     {
         public CategoryProfile()
         {
-            CreateMap<Core.Domain.Entities.Category,CreateCategoryDto>();
-            CreateMap<Core.Domain.Entities.Category,GetCategoryDto>();
-            CreateMap<Core.Domain.Entities.Category,CreateCategoryCommand>();
-
+            CreateMap<Category,CreateCategoryDto>().ReverseMap();
+            CreateMap<Category,GetCategoryDto>().ReverseMap();
+            CreateMap<Category,CreateCategoryCommand>();
+            CreateMap<CreateCategoryCommand,Category>();
 
 
         }
