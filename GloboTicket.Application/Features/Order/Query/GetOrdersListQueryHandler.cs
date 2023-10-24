@@ -11,20 +11,24 @@ using System.Threading.Tasks;
 
 namespace GloboTicket.Application.Features.Order.Query
 {
-    public class GetOrdersListQueryHandler : IRequestHandler<GetOrderListQuery, List<GetCategoryDto>>
+    public class GetOrdersListQueryHandler : IRequestHandler<GetOrdersForMonthQuery, PagedOrdersForMonthVm>
     {
         public IMapper _mapper { get; }
-        public ICategoryRepository _repository { get; }
-        public GetOrdersListQueryHandler(IMapper mapper, ICategoryRepository repository)
+        public IOrderRepository _orderRepository { get; }
+        public GetOrdersListQueryHandler(IMapper mapper, IOrderRepository repository)
         {
             _mapper = mapper;
-            _repository = repository;
+            _orderRepository = repository;
         }
-        public async Task<List<GetCategoryDto>> Handle(GetOrderListQuery request, CancellationToken cancellationToken)
+        public async Task<PagedOrdersForMonthVm> Handle(GetOrdersForMonthQuery request, CancellationToken cancellationToken)
         {
-            var entiry = await _repository.GetAll();
+            var list = await _orderRepository.GetPagedOrdersForMonth(request.Date, request.Page, request.Size);
+            var orders = _mapper.Map<List<OrdersForMonthDto>>(list);
 
-            return _mapper.Map<List<GetCategoryDto>>(entiry);
+            var count = await _orderRepository.GetTotalCountOfOrdersForMonth(request.Date);
+            return new PagedOrdersForMonthVm() { Count = count, OrdersForMonth = orders, Page = request.Page, Size = request.Size };
+
         }
+
     }
 }
