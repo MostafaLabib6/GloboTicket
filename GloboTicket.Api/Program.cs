@@ -1,3 +1,4 @@
+using GloboTicket.Api.MIddelware;
 using GloboTicket.Application;
 using GloboTicket.Infrastructure;
 using GloboTicket.TicketManagement.Persistence;
@@ -33,6 +34,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();
+
+app.UseCustomExceptionHandler();
 
 app.UseCors("open");
 
