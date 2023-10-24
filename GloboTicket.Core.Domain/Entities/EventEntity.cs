@@ -1,10 +1,12 @@
 ﻿using GloboTicket.Core.Domain.Common;
 using GloboTicket.Core.Domain.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace GloboTicket.TicketManagement.Domain.Entities
 {
     public class EventEntity: BaseEntity
     {
+        [Key]
         public Guid EventId { get; set; }
         public string Name { get; set; } = string.Empty;
         public int Price { get; set; }
