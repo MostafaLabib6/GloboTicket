@@ -8,6 +8,7 @@ namespace GloboTicket.Application.Exceptions
 {
     public class NotFoundException : Exception
     {
-        public NotFoundException(string message) :base(message){ }
+        public NotFoundException(string message, object key)
+            : base($"{message} ({key}) is not found") { }
     }
 }
